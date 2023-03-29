@@ -1,9 +1,9 @@
 <div align="center">
-  <a href="https://github.com/sanmaomashi/Salute_DL">
-    <img src="https://raw.githubusercontent.com/sanmaomashi/Salute_DeepLearning/main/img/1.jpg" height="400">
+  <a href="https://github.com/sanmaomashi/Salute_DataStructure">
+    <img src="https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/1.jpg" height="400">
   </a>
-  <h1>DeepLearning - Beginner Runaway | 🚴‍♂️</h1>
-  <img src="https://img.shields.io/github/repo-size/sanmaomashi/Salute_DeepLearning.svg?label=Repo%20size&style=flat-square" height="20">
+  <h1>DataStructure - Beginner Runaway | 🚴‍♂️</h1>
+  <img src="https://img.shields.io/github/repo-size/sanmaomashi/Salute_DataStructure.svg?label=Repo%20size&style=flat-square" height="20">
   <img src="https://img.shields.io/badge/License-Apache%202.0-purple" data-origin="https://img.shields.io/badge/License-Apache%202.0-blue" alt="">
 </div>
 
@@ -12,7 +12,7 @@
 
 ## 简介
 
-Deep Learning 从入门到跑路
+数据结构 从入门到跑路
 
 
 
@@ -28,11 +28,11 @@ Deep Learning 从入门到跑路
 
 ## 在线阅读
 
-- https://sanmaomashi.github.io/Salute_DeepLearning/
+- https://sanmaomashi.github.io/Salute_DataStructure/
 
 
 
 ## License
 
-Licensed under the [Apache-2.0](http://choosealicense.com/licenses/apache/) © Salute_DeepLearning
+Licensed under the [Apache-2.0](http://choosealicense.com/licenses/apache/) © Salute_DataStructure
 
