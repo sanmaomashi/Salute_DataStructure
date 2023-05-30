@@ -5,7 +5,8 @@
 
 * **第二章：数组与链表**
   - [数组](sections/chapters2/数组.md)
-  - [链表](sections/chapters2/链表md)
+  - [链表](sections/chapters2/链表.md)
+  - [列表](sections/chapters2/列表.md)
 * **第三章：栈与队列**
   - [栈](sections/chapters3/栈.md)
   - [队列](sections/chapters3/队列.md)
