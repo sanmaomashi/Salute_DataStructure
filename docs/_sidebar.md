@@ -10,6 +10,7 @@
 * **第三章：栈与队列**
   - [栈](sections/chapters3/栈.md)
   - [队列](sections/chapters3/队列.md)
+  - [双向队列](sections/chapters3/双向队列.md)
 
 **第四章：树**
 
