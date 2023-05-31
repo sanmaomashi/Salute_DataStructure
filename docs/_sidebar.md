@@ -2,7 +2,6 @@
 * **第一章：概述**
   * [算法](sections/chapters1/算法.md)
   * [数据结构](sections/chapters1/数据结构.md)
-
 * **第二章：数组与链表**
   - [数组](sections/chapters2/数组.md)
   - [链表](sections/chapters2/链表.md)
@@ -12,10 +11,8 @@
   - [队列](sections/chapters3/队列.md)
   - [双向队列](sections/chapters3/双向队列.md)
 * **第四章：散列表（哈希表）**
-  - 哈希表的定义和实现
-  - 哈希函数和冲突解决策略
-  - 哈希表的应用
-  - 哈希表的时间、空间复杂度
+  - [哈希表](sections/chapters4/哈希表.md)
+  - [哈希冲突](sections/chapters4/哈希冲突.md)
 
 **第四章：树**
 
