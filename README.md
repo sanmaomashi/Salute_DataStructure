@@ -28,11 +28,12 @@
 
 ## 在线阅读
 
-- https://sanmaomashi.github.io/Salute_DataStructure/
+- [GitHub Pages](https://sanmaomashi.github.io/Salute_DataStructure/)
+- ~~Gitee~~
 
 
 
 ## License
 
-Licensed under the [Apache-2.0](http://choosealicense.com/licenses/apache/) © Salute_DataStructure
+Licensed under the [Apache-2.0](http://choosealicense.com/licenses/apache/) © Salute_DataStructure by [sanmaomashi](https://github.com/sanmaomashi)
 

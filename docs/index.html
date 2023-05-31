@@ -75,8 +75,23 @@
       latex: {
         inlineMath   : [['$', '$'], ['\\(', '\\)']], // default
         displayMath  : [['$$', '$$']],               // default
-      }
-
+      },
+      // 页脚
+      footer: {
+        copy: '<span>Licensed under the <a href="http://choosealicense.com/licenses/apache/">Apache-2.0</a></span>',
+        auth: ' © Salute_DataStructure by <a href="https://github.com/sanmaomashi">sanmaomashi</a>',
+        pre: '<hr/>',
+        style: 'text-align: left;',
+        class: 'className',
+      },
+      // 回到顶部
+      docsifyBackTop: {
+        size: 32,             // 数值，组件大小，默认值32。
+        bottom: 15,           // 数值，组件底部偏移距离，默认值15。
+        right: 15,            // 数值，组件右侧偏移距离，默认值15。
+        logo: '🔝',        // logo:字符串或svg矢量图代码，默认为svg代码图标。
+        bgColor: '\#2096ff'     // 背景颜色，#fff、pink等，logo为svg图标时，不填。
+      },
     }
   </script>
   <!-- 全局搜索 -->
@@ -103,15 +118,14 @@
   <script src="https://unpkg.com/docsify-toc@1.0.0/dist/toc.js"></script>
   <!--  tab  -->
   <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
-  <!-- 公式   -->
-  <!-- LaTeX display engine -->
+  <!-- 公式  -->
   <script src="//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <!--  docsify-latex plugin -->
   <script src="//cdn.jsdelivr.net/npm/docsify-latex@0"></script>
-
-
-
-
+  <!-- 页脚 -->
+  <script src="//unpkg.com/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
+  <!-- 回到顶部 -->
+  <script src="https://cdn.jsdelivr.net/gh/Sumsung524/docsify-backTop/dist/docsify-backTop.min.js"></script>
 
 </body>
 </html>
