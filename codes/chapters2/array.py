@@ -5,9 +5,13 @@
 # @GitHub : https://github.com/sanmaomashi
 # @Summary : 数组
 
+
 print("=" * 30 + "数组" + "=" * 30)
-arr = [0] * 5  # [ 0, 0, 0, 0, 0 ]
-nums = [1, 3, 2, 5, 4]
+from typing import List
+# 初始化数组
+arr: List[int] = [0] * 5  # [ 0, 0, 0, 0, 0 ]
+nums: List[int] = [1, 3, 2, 5, 4]
+
 
 print(arr)
 print(nums)
