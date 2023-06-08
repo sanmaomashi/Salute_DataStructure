@@ -1,51 +1,175 @@
-# 双向队列
+# !/usr/bin/env python
+# -*- coding:utf-8 -*-　
+# @Time : 2023/6/8 14:21 
+# @Author : sanmaomashi
+# @GitHub : https://github.com/sanmaomashi
+# @Summary : 队列
+from typing import Optional
 
-## 一、双向队列概述
-
-对于队列，我们仅能在头部删除或在尾部添加元素。然而，「双向队列 Deque」提供了更高的灵活性，允许在头部和尾部执行元素的添加或删除操作。
-
-![双向队列的操作](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/35.png)
-
-## 二、双向队列的实现
-
-双向队列的实现与队列类似，可以选择链表或数组作为底层数据结构。
-
-### 1. 基于双向链表的实现
-
-回顾上一节内容，我们使用普通单向链表来实现队列，因为它可以方便地删除头节点（对应出队操作）和在尾节点后添加新节点（对应入队操作）。
-
-对于双向队列而言，头部和尾部都可以执行入队和出队操作。换句话说，双向队列需要实现另一个对称方向的操作。为此，我们采用「双向链表」作为双向队列的底层数据结构。
-
-我们将双向链表的头节点和尾节点视为双向队列的队首和队尾，同时实现在两端添加和删除节点的功能。
-
-<!-- tabs:start -->
-
-#### **LinkedListQueue**
-
-![基于链表实现双向队列的入队出队操作](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/36.png)
-
-#### **pushLast()**
-
-![linkedlist_deque_push_last](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/37.png)
-
-#### **pushFirst()**
-
-![linkedlist_deque_push_first](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/38.png)
-
-#### **popLast()**
-
-![linkedlist_deque_pop_last](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/39.png)
+print("============================== 队列 - 链表实现 ==============================")
 
 
-#### **popFirst()**
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
-![linkedlist_deque_pop_first](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/40.png)
 
-<!-- tabs:end -->
+class Queue:
+    def __init__(self):
+        self.front = self.rear = None
 
-以下是具体实现代码。
+    def is_empty(self):
+        """检查队列是否为空"""
+        return self.front is None
 
-```python
+    def enqueue(self, item):
+        """向队列添加元素"""
+        temp = Node(item)
+
+        if self.rear is None:
+            self.front = self.rear = temp
+            return
+        self.rear.next = temp
+        self.rear = temp
+
+    def dequeue(self):
+        """从队列移除元素"""
+        if self.is_empty():
+            return
+        temp = self.front
+        self.front = temp.next
+
+        if self.front is None:
+            self.rear = None
+
+        return str(temp.data)
+
+    def peek(self):
+        """获取队列的第一个元素"""
+        if self.is_empty():
+            return
+        return str(self.front.data)
+
+
+# 创建一个队列
+q = Queue()
+
+# 向队列添加元素
+q.enqueue(1)
+q.enqueue(2)
+q.enqueue(3)
+
+# 获取队列的第一个元素
+print(q.peek())  # 输出: 1
+
+# 从队列移除元素
+print(q.dequeue())  # 输出: 1
+print(q.dequeue())  # 输出: 2
+print(q.dequeue())  # 输出: 3
+
+print("============================== 队列 - 链表实现 ==============================")
+
+print("============================== 队列 - 数组实现 ==============================")
+
+
+class ArrayQueue:
+    """基于环形数组实现的队列"""
+
+    def __init__(self, size: int) -> None:
+        """构造方法"""
+        self.__nums: list[int] = [0] * size  # 用于存储队列元素的数组
+        self.__front: int = 0  # 队首指针，指向队首元素
+        self.__size: int = 0  # 队列长度
+
+    def capacity(self) -> int:
+        """获取队列的容量"""
+        return len(self.__nums)
+
+    def size(self) -> int:
+        """获取队列的长度"""
+        return self.__size
+
+    def is_empty(self) -> bool:
+        """判断队列是否为空"""
+        return self.__size == 0
+
+    def push(self, num: int) -> None:
+        """入队"""
+        if self.__size == self.capacity():
+            raise IndexError("队列已满")
+        # 计算尾指针，指向队尾索引 + 1
+        # 通过取余操作，实现 rear 越过数组尾部后回到头部F
+        rear: int = (self.__front + self.__size) % self.capacity()
+        # 将 num 添加至队尾
+        self.__nums[rear] = num
+        self.__size += 1
+
+    def pop(self) -> int:
+        """出队"""
+        num: int = self.peek()
+        # 队首指针向后移动一位，若越过尾部则返回到数组头部
+        self.__front = (self.__front + 1) % self.capacity()
+        self.__size -= 1
+        return num
+
+    def peek(self) -> int:
+        """访问队首元素"""
+        if self.is_empty():
+            raise IndexError("队列为空")
+        return self.__nums[self.__front]
+
+    def to_list(self) -> list[int]:
+        """返回列表用于打印"""
+        res = [0] * self.size()
+        j: int = self.__front
+        for i in range(self.size()):
+            res[i] = self.__nums[(j % self.capacity())]
+            j += 1
+        return res
+
+
+# 创建一个容量为5的队列
+queue = ArrayQueue(5)
+
+# 添加元素到队列
+queue.push(1)
+queue.push(2)
+queue.push(3)
+print(queue.to_list())  # 输出: [1, 2, 3]
+
+# 查看队列是否为空
+print(queue.is_empty())  # 输出: False
+
+# 查看队列的容量
+print(queue.capacity())  # 输出: 5
+
+# 查看队列的长度
+print(queue.size())  # 输出: 3
+
+# 查看队首元素
+print(queue.peek())  # 输出: 1
+
+# 出队
+print(queue.pop())  # 输出: 1
+print(queue.to_list())  # 输出: [2, 3]
+
+# 再次入队
+queue.push(4)
+queue.push(5)
+print(queue.to_list())  # 输出: [2, 3, 4, 5]
+
+# 入队，由于队列已满，将抛出异常
+try:
+    queue.push(6)  # 抛出: IndexError: 队列已满
+except IndexError as e:
+    print(e)
+
+print("============================== 队列 - 数组实现 ==============================")
+
+print("============================== 双向队列 - 链表实现 ==============================")
+
+
 class ListNode:
     """双向链表节点"""
 
@@ -180,39 +304,12 @@ print(deque.to_array())  # 输出: []
 deque.push_first(3)
 deque.push_last(4)
 print(deque.to_array())  # 输出: [3, 4]
-```
 
-### 2. 基于数组的实现
+print("============================== 双向队列 - 链表实现 ==============================")
 
-与基于数组实现队列类似，我们也可以使用环形数组来实现双向队列。在队列的实现基础上，仅需增加“队首入队”和“队尾出队”的方法。
+print("============================== 双向队列 - 数组实现 ==============================")
 
-<!-- tabs:start -->
 
-#### **ArrayDeque**
-
-![基于数组实现双向队列的入队出队操作](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/41.png)
-
-#### **pushLast()**
-
-![array_deque_push_last](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/42.png)
-
-#### **pushFirst()**
-
-![array_deque_push_first](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/43.png)
-
-#### **popLast()**
-
-![array_deque_pop_last](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/44.png)
-
-#### **popFirst()**
-
-![array_deque_pop_first](https://raw.githubusercontent.com/sanmaomashi/Salute_DataStructure/main/img/45.png)
-
-<!-- tabs:end -->
-
-以下是具体实现代码。
-
-```python
 class ArrayDeque:
     """基于环形数组实现的双向队列"""
 
@@ -328,79 +425,5 @@ print(deque.to_array())  # 输出: []
 deque.push_first(3)
 deque.push_last(4)
 print(deque.to_array())  # 输出: [3, 4]
-```
 
-
-## 三、双向队列的优缺点
-
-### 1. 优点
-
-1. **灵活性**：双向队列在两端都可以进行添加和删除操作，这使得它比普通队列更加灵活。你可以根据需要从任何一端添加或删除元素。
-2. **高效性**：如果正确实现，双向队列的所有操作（包括在两端的添加和删除）的时间复杂度都可以达到O(1)。
-3. **广泛应用**：由于其灵活性和高效性，双向队列在许多算法和数据结构中都有应用，如滑动窗口算法等。
-
-### 2. 缺点
-
-1. **复杂性**：相比于普通队列，双向队列的实现通常会更复杂一些。因为我们需要维护两个端点，并且在两个端点都可以进行添加和删除操作。
-2. **不支持随机访问**：与数组和列表相比，双向队列不支持随机访问。虽然你可以从任何一端添加或删除元素，但如果你想访问队列中的其他元素，必须先移除前面的元素。
-3. **空间效率**：与其他线性数据结构相比，双向队列可能需要更多的空间来存储指向前一个和后一个元素的指针。
-
-## 四、双向队列的常用操作
-
-双向队列的常用操作如下表所示，具体的方法名称需要根据所使用的编程语言来确定。
-
-| 方法名      | 描述             | 时间复杂度 |
-| :---------- | :--------------- | :--------- |
-| pushFirst() | 将元素添加至队首 | `O(1)`     |
-| pushLast()  | 将元素添加至队尾 | `O(1)`     |
-| popFirst()  | 删除队首元素     | `O(1)`     |
-| popLast()   | 删除队尾元素     | `O(1)`     |
-| peekFirst() | 访问队首元素     | `O(1)`     |
-| peekLast()  | 访问队尾元素     | `O(1)`     |
-
-同样地，我们可以直接使用编程语言中已实现的双向队列类。
-
-```python
-# 初始化双向队列
-deque: Deque[int] = collections.deque()
-
-# 元素入队
-deque.append(2)      # 添加至队尾
-deque.append(5)
-deque.append(4)
-deque.appendleft(3)  # 添加至队首
-deque.appendleft(1)
-
-# 访问元素
-front: int = deque[0]  # 队首元素
-rear: int = deque[-1]  # 队尾元素
-
-# 元素出队
-pop_front: int = deque.popleft()  # 队首元素出队
-pop_rear: int = deque.pop()       # 队尾元素出队
-
-# 获取双向队列的长度
-size: int = len(deque)
-
-# 判断双向队列是否为空
-is_empty: bool = len(deque) == 0
-```
-
-
-## 五、双向队列的应用
-
-双向队列兼具栈与队列的逻辑，**因此它可以实现这两者的所有应用场景，同时提供更高的自由度**。
-
-我们知道，软件的“撤销”功能通常使用栈来实现：系统将每次更改操作 `push` 到栈中，然后通过 `pop` 实现撤销。然而，考虑到系统资源的限制，软件通常会限制撤销的步数（例如仅允许保存 50 步）。当栈的长度超过 50 时，软件需要在栈底（即队首）执行删除操作。**但栈无法实现该功能，此时就需要使用双向队列来替代栈**。请注意，“撤销”的核心逻辑仍然遵循栈的先入后出原则，只是双向队列能够更加灵活地实现一些额外逻辑。
-
-## 六、双向队列的时间、空间复杂度
-
-双向队列（Deque，即 Double-Ended Queue）是一种特殊的队列，允许我们在两端（头和尾）执行插入和删除操作。下面是双向队列中一些常见操作的时间复杂度：
-
-1. `Insert at beginning/end` (插入到开头/结尾)：这些操作允许我们在双向队列的头部或尾部插入元素，时间复杂度为O(1)。
-2. `Delete from beginning/end`(从开头/结尾删除)：这些操作允许我们从双向队列的头部或尾部删除元素，时间复杂度为O(1)。
-3. `Peek at beginning/end (查看开头/结尾)`：这些操作允许我们查看双向队列的头部或尾部元素但不删除它，时间复杂度为O(1)。
-
-以上的时间复杂度都是基于你有一个有效的实现。例如，如果你使用一个双向链表来实现双向队列，那么上述操作的时间复杂度应该都是O(1)。如果使用数组实现，当数组需要扩容时，某些操作可能需要更多的时间。
-
-双向队列的空间复杂度是O(n)，其中n是双向队列中的元素数量。这是因为每个元素都需要一个单独的空间。如果你使用链表实现双向队列，那么还需要额外的空间来存储每个节点的前向和后向指针。
+print("============================== 双向队列 - 数组实现 ==============================")
